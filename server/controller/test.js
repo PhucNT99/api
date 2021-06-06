@@ -14,12 +14,15 @@ async function createTest(req, res, next) {
     if (!api) {
         return res.send(getResponse(400, "Test case has been existed!"))
     } 
-    let [test, created] = await Test.findOrCreate({ where:{ name }, defaults:{ name, data}})
-    if(created) {
-        api.addTest(test)
-        return res.send(getResponse(200, "Create Test case success!", test))
-    }
-    return res.send(getResponse(400, "Test case has been existed!"))
+    // let [test, created] = await Test.findOrCreate({ where:{ name }, defaults:{ name, data}})
+    // if(created) {
+    //     api.addTest(test)
+    //     return res.send(getResponse(200, "Create Test case success!", test))
+    // }
+    // return res.send(getResponse(400, "Test case has been existed!"))
+    let test = await Test.create({name, data})
+    api.addTest(test)
+    return res.send(getResponse(200, "Create Test case success!", test))
 }
 
 function updateTest(req, res, next) {
