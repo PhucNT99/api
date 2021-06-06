@@ -14,12 +14,15 @@ async function createApi(req, res, next) {
     if (!project) {
         return res.send(getResponse(400, "Project has been existed!"))
     } 
-    let [api, created] = await Api.findOrCreate({ where:{ name }, defaults:{ name, data}})
-    if(created) {
-        project.addApi(api)
-        return res.send(getResponse(200, "Create project success!", api))
-    }
-    return res.send(getResponse(400, "Project has been existed!"))
+    // let [api, created] = await Api.findOrCreate({ where:{ name }, defaults:{ name, data}})
+    // if(created) {
+    //     project.addApi(api)
+    //     return res.send(getResponse(200, "Create project success!", api))
+    // }
+    // next("Api has been existed!!")
+    let api = await Api.create({name, data})
+    project.addApi(api)
+    return res.send(getResponse(200, "Create project success!", api))
 }
 
 function updateApi(req, res, next) {
