@@ -21,6 +21,5 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-models
 server/tmp_docs/*
 .env
