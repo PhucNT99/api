@@ -6,7 +6,11 @@ const app			= express()
 const PORT			= process.env.PORT || 3002
 const { getResponse } = require("./server/utils")
 const { apiRoute, projectRoute, testRoute, generateRoute } = require("./server/router")
-
+const path = require("path")
+const fs = require("fs")
+if(!fs.existsSync(path.join(__dirname, "server/tmp_docs"))) {
+	fs.mkdirSync(path.join(__dirname, "server/tmp_docs"))
+}
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
