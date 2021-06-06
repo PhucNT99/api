@@ -4,7 +4,7 @@ const { projectController } =  require("../controller")
 
 router.post("/create",  projectController.createProject)
 router.post("/update",  projectController.updateProject)
-router.post("/get-list",  projectController.getListProject)
+router.post("/full-info",  projectController.getListProject)
 router.post("/delete",  projectController.deleteProject)
 
 module.exports = router

@@ -19,8 +19,8 @@ async function createApi(req, res, next) {
     //     project.addApi(api)
     //     return res.send(getResponse(200, "Create project success!", api))
     // }
-    // next("Api has been existed!!")
-    let api = await Api.create({name, data})
+    // return res.send(getResponse(400, "Project has been existed!"))
+    let api = await Api.create({ name, data })
     project.addApi(api)
     return res.send(getResponse(200, "Create project success!", api))
 }
@@ -52,7 +52,7 @@ function getListApi(req, res, next) {
 }
 
 function deleteApi(req, res, next) {
-    let { id } = req.body.id
+    let { id } = req.body
     Api.destroy({
         where: {
             id

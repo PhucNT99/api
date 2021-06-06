@@ -106,12 +106,12 @@ function genTestCases(projectObj) {
                     response: []
                 }
                 let _item = {
-                listen: 'test',
-                script: {
-                        exec: [`pm.test(\"${_cs.name}\", function(){\r`],
-                        type: "text/javascript"
+                    listen: 'test',
+                    script: {
+                            exec: [`pm.test(\"${_cs.name}\", function(){\r`],
+                            type: "text/javascript"
+                        }
                     }
-                }
                 for(let e of _cs.expect) {
                     if(e.code) {
                         _item.script.exec.push(`    pm.response.to.have.status(${e.code});\r`)
@@ -122,7 +122,7 @@ function genTestCases(projectObj) {
                 item.request = processRequest(api.data, _cs)
                 _item.script.exec.push("});\r")
                 item.event = [_item]
-                col.items.push(item)
+                col.item.push(item)
             }
         }
     }
@@ -134,7 +134,7 @@ function processRequest(api, cs) {
         method: api.method,
         header: []
     }
-    if(result.method.toUpperCase() == "POST") {
+    if((result.method || "").toUpperCase() == "POST") {
         result.body = {
             mode: api.mode,
         }
@@ -248,14 +248,17 @@ function makeApiMD(api) {
     return str
 }
 
-function makeReadmeMD() {
-    return "This is my document"
+function makeReadmeMD(projectObj) {
+    return projectObj.description || "This is my document"
 }
-function makeFolder(projectObj) {
+async function makeFolder(projectObj) {
     let projectName = projectObj.name
     let projectId = projectObj.id
     let projectIdPath = path.join(docsPath, projectId.toString())
     let projectNamePath = path.join(projectIdPath, projectName)
+    await new Promise(res => {
+        exec(`rm -rf ${projectIdPath}`, res)
+    })
     if(!fs.existsSync(projectIdPath)) {
         fs.mkdirSync(projectIdPath)
     }

@@ -20,7 +20,7 @@ async function createTest(req, res, next) {
     //     return res.send(getResponse(200, "Create Test case success!", test))
     // }
     // return res.send(getResponse(400, "Test case has been existed!"))
-    let test = await Test.create({name, data})
+    let test = await Test.create({ name, data })
     api.addTest(test)
     return res.send(getResponse(200, "Create Test case success!", test))
 }
@@ -52,7 +52,7 @@ function getListTest(req, res, next) {
 }
 
 function deleteTest(req, res, next) {
-    let { id } = req.body.id
+    let { id } = req.body
     Test.destroy({
         where: {
             id

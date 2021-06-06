@@ -1,13 +1,6 @@
-# Ứng dụng quản lý api 
-
-```
-  mkdir -p server/tmp_docs
-  touch .env
-  npm install
-  npm run build
-  node main.js
-```
-
-#### NOTE
-- Sử dụng node version 10
-- Tạo folder server/tmp_docs để chứa docs
+### WEBSITE MANAGE TEST CASE 
+ 
+tạo project => 1 table 
+project có nhiều api => 1 table 
+api có test case 
+test case => có nhiều dữ liệu 

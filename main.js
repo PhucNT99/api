@@ -10,7 +10,11 @@ const { apiRoute, projectRoute, testRoute, generateRoute } = require("./server/r
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
+app.use(express.static('dist'))
+app.use("/docs", express.static("server/tmp_docs"))
+app.use("/docs", function(req, res, next) {
+	res.send("Please click 'Gen docs' before view document!")
+})
 app.use(function(req, res, next) {
 	console.log(req.body || req.params)
 	next()
@@ -25,7 +29,7 @@ app.use(function(error, req, res, next) {
 	return res.send(getResponse(404, "Page not found"))
 })
 
-app.listen(PORT,function() {
+app.listen(PORT, function() {
 	console.log("Listening!!!", PORT)
 })
 

@@ -1,5 +1,5 @@
-const { getResponse }  = require("../utils")
-const { Api, Project } = require("../models")
+const { getResponse, parseJson }  = require("../utils")
+const { Api, Project, Test } = require("../models")
 
 function createProject(req, res, next) {
     let {name, description} = req.body
@@ -36,7 +36,18 @@ function updateProject(req, res, next) {
 }
 
 function getListProject(req, res, next) {
-    Project.findAll()
+    Project.findAll({
+        include: [
+            {
+                model: Api,
+                include: [
+                    {
+                        model: Test,
+                    }
+                ]
+            }
+        ]
+    })
     .then(projects => {
         res.send(getResponse(200, "Get list project success!", projects))
     })
